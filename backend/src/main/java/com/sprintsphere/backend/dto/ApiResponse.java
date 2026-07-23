@@ -12,11 +12,18 @@ public class ApiResponse {
 
     private LocalDateTime timestamp;
 
-    public ApiResponse(boolean success, String message, Object data) {
+    private int status;
+
+    public ApiResponse(boolean success, int status, String message, Object data) {
         this.success = success;
+        this.status = status;
         this.message = message;
         this.data = data;
         this.timestamp = LocalDateTime.now();
+    }
+
+    public int getStatus(){
+        return status;
     }
 
     public LocalDateTime getTimestamp() {
