@@ -4,6 +4,7 @@ import com.sprintsphere.backend.dto.ApiResponse;
 import com.sprintsphere.backend.service.HealthService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 @RestController
 public class HealthController {
@@ -16,6 +17,6 @@ public class HealthController {
 
     @GetMapping("/api/v1/health")
     public ApiResponse health() {
-        return new ApiResponse(true, 200, healthService.getHealthStatus(), null);
+        return new ApiResponse(true, HttpStatus.OK.value(), healthService.getHealthStatus(), null);
     }
 }
