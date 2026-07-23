@@ -16,6 +16,6 @@ public class HealthController {
 
     @GetMapping("/api/v1/health")
     public ApiResponse health() {
-        return new ApiResponse(true, healthService.getHealthStatus());
+        return new ApiResponse(true, healthService.getHealthStatus(), null);
     }
 }

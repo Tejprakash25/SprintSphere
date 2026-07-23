@@ -6,9 +6,16 @@ public class ApiResponse {
 
     private boolean success;
 
-    public ApiResponse(boolean success, String message) {
+    private Object data;
+
+    public ApiResponse(boolean success, String message, Object data) {
         this.success = success;
         this.message = message;
+        this.data = data;
+    }
+
+    public Object getData(){
+        return data;
     }
 
     public boolean isSuccess() {
