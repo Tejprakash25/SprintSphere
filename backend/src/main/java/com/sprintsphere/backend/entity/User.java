@@ -28,4 +28,12 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
