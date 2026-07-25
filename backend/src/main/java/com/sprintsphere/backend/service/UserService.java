@@ -1,6 +1,7 @@
 package com.sprintsphere.backend.service;
 
 import com.sprintsphere.backend.entity.User;
+import com.sprintsphere.backend.exception.DuplicateResourceException;
 import com.sprintsphere.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class UserService {
     }
 
     public UserResponse createUser(CreateUserRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new DuplicateResourceException("Email already registered");
+        }
 
         User user = new User();
 

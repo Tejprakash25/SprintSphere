@@ -20,4 +20,15 @@ public class GlobalExceptionHandler {
                         "message", ex.getMessage()
                 ));
     }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateResource(
+            DuplicateResourceException ex) {
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of(
+                        "status", 409,
+                        "message", ex.getMessage()
+                ));
+    }
 }
