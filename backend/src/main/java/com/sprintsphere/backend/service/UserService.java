@@ -10,6 +10,8 @@ import java.util.Optional;
 import com.sprintsphere.backend.dto.CreateUserRequest;
 import com.sprintsphere.backend.dto.UserResponse;
 
+import com.sprintsphere.backend.exception.ResourceNotFoundException;
+
 @Service
 public class UserService {
 
@@ -36,11 +38,26 @@ public class UserService {
         );
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getName(),
+                        user.getEmail()))
+                .toList();
     }
 
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserResponse getUserByEmail(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 }

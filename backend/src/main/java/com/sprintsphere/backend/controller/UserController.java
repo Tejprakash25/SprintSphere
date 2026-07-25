@@ -29,25 +29,11 @@ public class UserController {
 
     @GetMapping
     public List<UserResponse> getAllUsers() {
-        return userService.getAllUsers()
-                .stream()
-                .map(user -> new UserResponse(
-                        user.getId(),
-                        user.getName(),
-                        user.getEmail()))
-                .collect(Collectors.toList());
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{email}")
     public UserResponse getUserByEmail(@PathVariable String email) {
-
-        User user = userService.getUserByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        return new UserResponse(
-                user.getId(),
-                user.getName(),
-                user.getEmail()
-        );
+        return userService.getUserByEmail(email);
     }
 }
