@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import com.sprintsphere.backend.exception.ResourceNotFoundException;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -24,15 +26,18 @@ public class UserController {
 
     @PostMapping
     public UserResponse createUser(@Valid @RequestBody CreateUserRequest request) {
+        System.out.println(">>> REGISTER ENDPOINT HIT <<<");
         return userService.createUser(request);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{email}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public UserResponse getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
