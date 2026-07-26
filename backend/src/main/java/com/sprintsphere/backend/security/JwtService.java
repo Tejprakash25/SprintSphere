@@ -8,6 +8,8 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Service
 public class JwtService {
 
@@ -38,5 +40,9 @@ public class JwtService {
 
     public boolean isTokenValid(String token, String email) {
         return extractEmail(token).equals(email);
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        return extractEmail(token).equals(userDetails.getUsername());
     }
 }
